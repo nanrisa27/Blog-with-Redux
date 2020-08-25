@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
 import { database } from '../../../Back-End/Firebase';
 import _ from "lodash";
+import ReactQuill from "quill";
+import "react-quill/dist/quill.snow.css";
+import renderHTML from "react-render-html";
+//import App from '../../../App';
 
 
 class Posts extends Component {
@@ -73,8 +77,13 @@ class Posts extends Component {
                     </div>
 
                     <div className="form-group" >
-                        <input value={this.state.body} type="text" name="body" placeholder="Body"
-                            onChange={this.handleChange} ref="body" className="form-control"></input>
+                        <ReactQuill
+                            modules={App.modules}
+                            formats={App.modules}
+                            value={this.state.body}
+                            placeholder="Body"
+                            onChange={this.handleChange}
+                        ></ReactQuill>
                     </div>
                     <Button variant="info">Post</Button>{' '}
 
@@ -91,5 +100,15 @@ class Posts extends Component {
         );
     }
 }
+App.modules = {
+    toolbar: [
+        [{ "header": '1' }, { 'header': '2' }, { 'font': [] }
+        ],
+        [{ 'size': [] }],
+        ['bold', 'italics', 'underline', 'strike', 'blockquote'],
+        [{ 'list': 'unordered' }, { 'list': 'bullet' }],
+
+    ]
+};
 
 export default Posts;
